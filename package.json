@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/KhanhNguyenKHTN/SpeechServer/issues"
   },
-  "homepage": "https://github.com/KhanhNguyenKHTN/SpeechServer#readme"
+  "homepage": "https://github.com/KhanhNguyenKHTN/SpeechServer#readme",
+  "dependencies": {
+    "mysql": "^2.18.1"
+  }
 }

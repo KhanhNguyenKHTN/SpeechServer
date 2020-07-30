@@ -1,5 +1,5 @@
 var http = require('http');
-
+var db = require('./database');
 http.createServer(function (request, response) {
     const { headers, method, url } = request;
     let body = [];
@@ -19,10 +19,24 @@ http.createServer(function (request, response) {
 console.log("Server start in port 8080");
 
 function Direction(request, body) {
-    console.log("url" , request.url);
-    console.log("Method" , request.method);
     if(request.method == 'POST')
     {
-        console.log('post', body);
+        //call Back Function
+        // var data = JSON.parse(body);
+        // db.UpdateLink(data.message);
+        // console.log('post', data.message);
+        console.log(body);
+    }
+    else if (request.method == 'GET'){
+        //Redirect function
+        switch (request.url) {
+            case '/':               
+                break;
+            case '/home':
+                
+                break;
+            default:
+                break;
+        }
     }
 }
