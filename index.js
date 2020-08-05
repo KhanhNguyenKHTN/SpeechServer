@@ -4,6 +4,7 @@ const path = require('path');
 const router = express.Router();
 const lib = require('./lib');
 const db = require('./database');
+const fs = require('fs');
 
 router.post('/update/audio', function (req, res) {
     const { headers, method, url } = req;
@@ -54,9 +55,33 @@ router.post('/update/youtube', function (req, res) {
 })
 
 router.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname + '/index.html'));
+    // res.sendFile(path.join(__dirname + '/index.html'));
+    console.log(res.url);
+    res.send("Home Nothing")
     //__dirname : It will resolve to your project folder.
 });
+
+router.get('/chuong/:id', function (req, res) {
+    const range = req.headers.range;
+    console.log(range);
+    const filePath = path.join(__dirname, '/Data/Fix/Chuong' + req.params.id);
+    const stat = fs.statSync(filePath);
+    const total = stat.size;
+    res.writeHead(200, {
+        'Content-Range': 'bytes ' + 0 + '-' + (total -1) + '/' + total,
+        'Accept-Ranges': 'bytes',
+        'Content-Type': 'audio/mpeg',
+        'Content-Length': stat.size
+    });
+
+    const readStream = fs.createReadStream(filePath);
+    readStream.pipe(res);
+    // res.setHeader("Content-Type:","audio/mpeg")
+    // res.sendFile(path.join(__dirname + '/Data/Chuong' + req.params.id));
+    // res.send(req.params.id);
+    //__dirname : It will resolve to your project folder.
+});
+
 
 router.get('/data/:storename/:bookId', function (req, res) {
     console.log('aasdsadasds');
