@@ -62,20 +62,25 @@ router.get('/', function (req, res) {
 });
 
 router.get('/chuong/:id', function (req, res) {
-    const range = req.headers.range;
-    console.log(range);
-    const filePath = path.join(__dirname, '/Data/Fix/Chuong' + req.params.id);
-    const stat = fs.statSync(filePath);
-    const total = stat.size;
-    res.writeHead(200, {
-        'Content-Range': 'bytes ' + 0 + '-' + (total -1) + '/' + total,
-        'Accept-Ranges': 'bytes',
-        'Content-Type': 'audio/mpeg',
-        'Content-Length': stat.size
-    });
+    try{
+        const range = req.headers.range;
+        console.log(range);
+        const filePath = path.join(__dirname, '/Data/Fix/Chuong' + req.params.id);
+        const stat = fs.statSync(filePath);
+        const total = stat.size;
+        res.writeHead(200, {
+            'Content-Range': 'bytes ' + 0 + '-' + (total -1) + '/' + total,
+            'Accept-Ranges': 'bytes',
+            'Content-Type': 'audio/mpeg',
+            'Content-Length': stat.size
+        });
+    
+        const readStream = fs.createReadStream(filePath);
+        readStream.pipe(res);
 
-    const readStream = fs.createReadStream(filePath);
-    readStream.pipe(res);
+    }catch{
+        res.send("ERROR");
+    }
     // res.setHeader("Content-Type:","audio/mpeg")
     // res.sendFile(path.join(__dirname + '/Data/Chuong' + req.params.id));
     // res.send(req.params.id);
@@ -90,16 +95,33 @@ router.get('/data/:storename/:bookId', function (req, res) {
 });
 
 router.get('/index', function (req, res) {
-    res.sendFile(path.join(__dirname + '/index.html'));
+    try{
+        res.sendFile(path.join(__dirname + '/index.html'));
+    }catch
+    {
+        res.send("ERROR");
+    }
     //__dirname : It will resolve to your project folder.
 });
 
 router.get('/about', function (req, res) {
-    res.sendFile(path.join(__dirname + '/about.html'));
+    try{
+
+        res.sendFile(path.join(__dirname + '/about.html'));
+    }catch
+    {
+        res.send("ERROR");
+    }
 });
 
 router.get('/sitemap', function (req, res) {
-    res.sendFile(path.join(__dirname + '/sitemap.html'));
+    try{
+
+        res.sendFile(path.join(__dirname + '/sitemap.html'));
+    }catch
+    {
+        res.send("ERROR");
+    }
 });
 
 //add the router

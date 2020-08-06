@@ -10,7 +10,7 @@
     <p id="Info">Click on the play button to play a sound:</p>
     
     <audio controls id="myAudio" autoplay>
-      <source src="http://123.20.137.67:9999/Chuong/127.mp3" id="audioSource" type="audio/mpeg">
+      <source src="http://35.196.95.74/Chuong/152.mp3" id="audioSource" type="audio/mpeg">
       Your browser does not support the audio element.
     </audio>
     <button onclick="setPlaySpeed()"> Tang </button>
@@ -31,7 +31,7 @@
     function previus(){
       CurId--;
       var source = document.getElementById('audioSource');
-      var name = "http://123.20.137.67:9999/chuong/"+ CurId+".mp3"; //'./Audio/Chuong' + CurId + '.mp3';
+      var name = "http://35.196.95.74/chuong/"+ CurId+".mp3"; //'./Audio/Chuong' + CurId + '.mp3';
       source.src = name;
       title.innerText = CurId;
       vid.load(); //call this to just preload the audio without playing
@@ -41,7 +41,7 @@
     function next(){
       CurId++;
       var source = document.getElementById('audioSource');
-      var name = "http://123.20.137.67:9999/chuong/"+ CurId+".mp3";
+      var name = "http://35.196.95.74/chuong/"+ CurId+".mp3";
       source.src = name;
       title.innerText = CurId;
       vid.load(); //call this to just preload the audio without playing
