@@ -1,5 +1,8 @@
 var https = require('https');
 var fs = require('fs');
+const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
+const ffmpeg = require('fluent-ffmpeg');
+ffmpeg.setFfmpegPath(ffmpegPath);
 
 exports.downloadAudio = function(dir, fileName, url)
 {
@@ -9,7 +12,12 @@ exports.downloadAudio = function(dir, fileName, url)
     var path = dir + '/' + fileName;
     var file = fs.createWriteStream(path);
     https.get(url, function(response) {
-        response.pipe(file);
+        response.pipe(file).on('finish', ()=>{
+          var path2 = "Data/Fix/" + fileName;
+          ffmpeg(path).audioCodec('copy').output(path2).on('error', function(err) {
+            console.log('An error occurred: ' + err.message);
+          }).run();
+        });
     });
 }
 

@@ -5,6 +5,9 @@ const router = express.Router();
 const lib = require('./lib');
 const db = require('./database');
 const fs = require('fs');
+const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
+const ffmpeg = require('fluent-ffmpeg');
+ffmpeg.setFfmpegPath(ffmpegPath);
 var formidable = require('formidable');
 
 router.post('/update/audio', function (req, res) {
@@ -64,6 +67,7 @@ router.get('/', function (req, res) {
   res.send("Home Nothing")
   //__dirname : It will resolve to your project folder.
 });
+
 
 router.get('/upload', function (req, res) {
   try{
