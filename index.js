@@ -11,22 +11,52 @@ ffmpeg.setFfmpegPath(ffmpegPath);
 var formidable = require('formidable');
 
 router.post('/update/audio', function (req, res) {
-    const { headers, method, url } = req;
+    try{
+        const { headers, method, url } = req;
+    
+        let body = [];
+        req.on('error', (err) => {
+            console.error(err);
+        }).on('data', (chunk) => {
+            body.push(chunk);
+        }).on('end', () => {
+            try {
+    
+                body = Buffer.concat(body).toString();
+                console.log("Demo: ");
+                var data = JSON.parse(body);
+                console.log("Demo: ", body);
+                // res.send(body);
+                db.updateDownLoad(data.message, function (err, info) {
+                    if (err) {
+                        console.log(err);
+                        res.send(err);
+                    }
+                    lib.downloadAudio(info.direction, info.fileName, info.url);
+                    res.send('Done');
+                });
+            } catch {
+                res.send('error');
+            }
+        });
+      
+    }catch{
+        res.send('ERROR');
+    }
+});
 
-    let body = [];
-    req.on('error', (err) => {
-        console.error(err);
-    }).on('data', (chunk) => {
-        body.push(chunk);
-    }).on('end', () => {
-        try {
-
+router.post('/update/youtube', function (req, res) {
+    try{
+        const { headers, method, url } = req;
+        let body = [];
+        req.on('error', (err) => {
+            console.error(err);
+        }).on('data', (chunk) => {
+            body.push(chunk);
+        }).on('end', () => {
             body = Buffer.concat(body).toString();
-            console.log("Demo: ");
             var data = JSON.parse(body);
-            console.log("Demo: ", body);
-            // res.send(body);
-            db.updateDownLoad(data.message, function (err, info) {
+            db.updateDownLoad(data, function (err, info) {
                 if (err) {
                     console.log(err);
                     res.send(err);
@@ -34,31 +64,10 @@ router.post('/update/audio', function (req, res) {
                 lib.downloadAudio(info.direction, info.fileName, info.url);
                 res.send('Done');
             });
-        } catch {
-            res.send('error');
-        }
-    });
-});
-
-router.post('/update/youtube', function (req, res) {
-  const { headers, method, url } = req;
-  let body = [];
-  req.on('error', (err) => {
-      console.error(err);
-  }).on('data', (chunk) => {
-      body.push(chunk);
-  }).on('end', () => {
-      body = Buffer.concat(body).toString();
-      var data = JSON.parse(body);
-      db.updateDownLoad(data, function (err, info) {
-          if (err) {
-              console.log(err);
-              res.send(err);
-          }
-          lib.downloadAudio(info.direction, info.fileName, info.url);
-          res.send('Done');
-      });
-  });
+        });
+    }catch{
+        res.send('ERROR');
+    }
 });
 
 router.get('/', function (req, res) {
@@ -88,21 +97,26 @@ router.get('/upload', function (req, res) {
 });
 
 router.post('/upload/:path', function (req, res) {
-  //Khởi tạo form
-  var form = new formidable.IncomingForm();
-  //Thiết lập thư mục chứa file trên server
-  form.uploadDir = "Data/Fix";
-  //xử lý upload
-  form.parse(req, function (err, fields, file) {
-      //path tmp trên server
-      var path = file.files.path;
-      //thiết lập path mới cho file
-      var newpath = form.uploadDir + file.files.name;
-      fs.rename(path, newpath, function (err) {
-          if (err) throw err;
-          res.end('Upload Thanh cong!');
-      });
-  });
+    try{
+        //Khởi tạo form
+        var form = new formidable.IncomingForm();
+        //Thiết lập thư mục chứa file trên server
+        form.uploadDir = "Data/Fix";
+        //xử lý upload
+        form.parse(req, function (err, fields, file) {
+            //path tmp trên server
+            var path = file.files.path;
+            //thiết lập path mới cho file
+            var newpath = form.uploadDir + file.files.name;
+            fs.rename(path, newpath, function (err) {
+                if (err) throw err;
+                res.end('Upload Thanh cong!');
+            });
+        });
+      
+    }catch{
+        res.send('ERROR');
+    }
 });
 
 router.get('/chuong/:id', function (req, res) {
