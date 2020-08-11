@@ -69,6 +69,15 @@ router.get('/', function (req, res) {
 });
 
 
+router.get('/configfile', function (req, res) {
+    try{
+      res.sendFile(path.join(__dirname + '/config.txt'));
+    }catch
+    {
+        res.send("ERROR");
+    }
+  });
+
 router.get('/upload', function (req, res) {
   try{
     res.sendFile(path.join(__dirname + '/upfile.html'));
@@ -166,8 +175,14 @@ router.get('/index', function (req, res) {
 
 router.get('/about', function (req, res) {
   try{
-
-      res.sendFile(path.join(__dirname + '/about.html'));
+      console.log("List");
+      var result = "";
+    fs.readdir('./Data/Fix/', (err, files) => {
+        files.forEach(file => {
+          result += file + '\t\n';
+        });
+        res.send(result);
+     });
   }catch
   {
       res.send("ERROR");
@@ -189,3 +204,4 @@ app.use('/', router);
 app.listen(process.env.port || 8888);
 
 console.log('Running at Port http://localhost:8888/');
+
