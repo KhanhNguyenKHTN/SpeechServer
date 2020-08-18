@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>reCAPTCHA demo: Explicit render after an onload callback</title>
+    <title id="title">reCAPTCHA demo: Explicit render after an onload callback</title>
     
   </head>	
   <body>
@@ -25,6 +25,7 @@
     var vid = document.getElementById("myAudio");
     var test = document.getElementById("Info");
     var title = document.getElementById("chuong");
+	var page = document.getElementById("title");
     var CurId = 127;
     vid.playbackRate = 1.2;
     test.innerText = vid.playbackRate;
@@ -38,11 +39,47 @@
       var source = document.getElementById('audioSource');
       var name = "http://35.196.95.74/chuong/"+ CurId+".mp3"; //'./Audio/Chuong' + CurId + '.mp3';
       source.src = name;
+	  document.title = CurId;
       title.innerText = CurId;
       vid.load(); //call this to just preload the audio without playing
       vid.play(); //call this to play the song right away
       vid.playbackRate = 1.2;
     }
+    function next(){
+      CurId++;
+      var source = document.getElementById('audioSource');
+      var name = "http://35.196.95.74/chuong/"+ CurId+".mp3";
+      source.src = name;
+      title.innerText = CurId;
+	  document.title = CurId;
+      vid.load(); //call this to just preload the audio without playing
+      vid.play(); //call this to play the song right away
+      vid.playbackRate = 1.2;
+    }
+    function go()
+    {
+      var text = document.getElementById('Chuong');
+      console.log(text.value);
+      CurId = parseInt(text.value);
+      var source = document.getElementById('audioSource');
+      var name = "http://35.196.95.74/chuong/"+ CurId+".mp3";
+      source.src = name;
+      title.innerText = CurId;
+	  document.title = CurId;
+      vid.load(); //call this to just preload the audio without playing
+      vid.play(); //call this to play the song right away
+      vid.playbackRate = 1.2;
+    }
+
+    vid.onended = function() {
+      next();
+    };
+    function setPlaySpeedLow() { 
+      vid.playbackRate -= 0.1;
+      test.innerText = vid.playbackRate;
+    } 
+    </script> 
+</html>
     function next(){
       CurId++;
       var source = document.getElementById('audioSource');
