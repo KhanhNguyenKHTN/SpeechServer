@@ -1,9 +1,11 @@
-<html>
-  <head>
-    <title id="title">reCAPTCHA demo: Explicit render after an onload callback</title>
-    
-  </head>	
-  <body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
     <h1 id="chuong">The audio element</h1>
     <button onclick="previus()">Previus</button>
     <button onclick="next()">Next</button>
@@ -14,7 +16,7 @@
       <button onclick="go()"> Go </button>
     </div>
 
-    <audio controls id="myAudio" autoplay>
+    <audio controls id="myAudio" autoplay playsinline>
       <source src="http://35.196.95.74/Chuong/152.mp3" id="audioSource" type="audio/mpeg">
       Your browser does not support the audio element.
     </audio>
@@ -78,8 +80,6 @@
       vid.playbackRate -= 0.1;
       test.innerText = vid.playbackRate;
     } 
-    </script> 
-</html>
     function next(){
       CurId++;
       var source = document.getElementById('audioSource');
