@@ -241,11 +241,13 @@ app.use(function(req, res, next){
     req.url = req.url.slice(0, req.url.length-1);
     console.log(req.url);
     res.setHeader('content-type', 'text/css');
+    res.type('.css');
     next();
   }else if(req.url.endsWith('.js/')){
     req.url = req.url.slice(0, req.url.length-1);
     console.log(req.url);
     res.setHeader('content-type', 'text/javascript');
+    res.type('.js');
     next();
   }else{
     res.render('notfound');
