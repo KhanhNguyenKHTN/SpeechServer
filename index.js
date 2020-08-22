@@ -231,6 +231,10 @@ router.get('/', function (req, res) {
    res.redirect('/audio/?limit=10&page=1');
 });
 
+router.get('/small', function (req, res) {
+  console.log(req.url);
+  res.sendfile(__dirname + '/small.html')
+});
 
 
 app.use('/', router);
