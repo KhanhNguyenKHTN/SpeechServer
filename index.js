@@ -11,6 +11,38 @@ ffmpeg.setFfmpegPath(ffmpegPath);
 var formidable = require('formidable');
 const { url } = require('inspector');
 
+router.post('/update/audio', function (req, res) {
+  try{
+      const { headers, method, url } = req;
+  
+      let body = [];
+      req.on('error', (err) => {
+          console.error(err);
+      }).on('data', (chunk) => {
+          body.push(chunk);
+      }).on('end', () => {
+          try {
+  
+              body = Buffer.concat(body).toString();
+              var data = JSON.parse(body);
+              // res.send(body);
+              db.updateDownLoad(data.message, function (err, info) {
+                  if (err) {
+                      console.log(err);
+                      res.send(err);
+                  }
+                  lib.downloadAudio(info.direction, info.fileName, info.url);
+                  res.send('Done');
+              });
+          } catch {
+              res.send('error');
+          }
+      });
+    
+  }catch{
+      res.send('ERROR');
+  }
+});
 
 router.get('/configfile', function (req, res) {
     try{
