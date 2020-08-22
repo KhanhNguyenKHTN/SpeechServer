@@ -1,0 +1,89 @@
+doctype html
+html
+    head
+        title index
+        link(rel="stylesheet",type="text/css", href="style/test.css")
+        link(rel="stylesheet",type="text/css", href="style/table.css")
+        link(rel="stylesheet",type="text/css", href="style/pagging.css")
+        link(rel="stylesheet",type="text/css", href="style/background.css")
+    body
+        #limit #{limit}
+        section(class='wrapper')
+            #stars
+            #stars2
+            #stars3
+        #main-display
+            #content
+                #search-content
+                    dive(id='form-search',class="search-box")
+                        input(id='input-search',type="text",name="",placeholder="Search")
+                        button(class="search-btn",type="button",name="button")
+                            i(class="fas fa-search")
+                .loader
+            #content-audio
+                audio(controls='',id='audio')
+                    source(id='audioSource',src='http://35.196.95.74/chuong/987.mp3', type='audio/mpeg')
+            #control-audio
+                .button-control
+                        button(class='button-action',onclick="previous()") 
+                            i(class='fas fa-step-backward')   Previus
+                        button(class='button-action',onclick="slow()")
+                            i(class='fas fa-backward')   Slow
+                        a(id="speed-audio") 1.2
+                        button(class='button-action',onclick="fast()") Fast   
+                            i(class='fas fa-forward')
+                        button(class='button-action',onclick="next()") Next  
+                            i(class='fas fa-step-forward')
+            #list-audio
+                #view-list
+                    Table(id='table', class="content-table")
+                        thead
+                            tr
+                                th
+                                    div(class="effect")
+                                        div
+                                        div
+                                        div
+                                        div
+                                        div
+                                        div
+                                        div
+                                        div
+                                        div
+                                th #{tableTitle} 
+                                th 
+                                    div(class="effect")
+                                        div
+                                        div
+                                        div
+                                        div
+                                        div
+                                        div
+                                        div
+                                        div
+                                        div 
+                        tbody(class="body-table")
+                            each val in listResult
+                                if val == currentSource
+                                    tr(class="active-row")
+                                        td(colspan="3") #{val}
+                                else 
+                                    tr
+                                        td(colspan="3") #{val}
+                #pagging
+                    .pagination
+                        a(class="direction-button",id="previous",onclick="previousPage()")
+                            i(class="fa fa-angle-left")
+                        each val in listPage
+                            if val == currentPage
+                               a(href='?limit=' + limit +'&page=' + val,class="btn active")=val
+                            else
+                                a(href='?limit=' + limit +'&page=' + val,class="btn")=val
+                        a(class="direction-button",id="next",onclick="nextPage()")
+                            i(class="fa fa-angle-right")
+
+
+    script(src="https://kit.fontawesome.com/a076d05399.js")
+    script(src="js/table.js")
+    script(src="js/audio.js")
+    script(src="js/pagging.js")

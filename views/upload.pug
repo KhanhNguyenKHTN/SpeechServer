@@ -1,0 +1,22 @@
+doctype html
+html
+    head
+        title upload
+        link(rel="stylesheet",type="text/css", href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css")
+    body
+        .container
+            .row
+            div(class="col-sm-8 col-sm-offset-2",style="margin-top: 50px;")
+                div(class="panel panel-info")
+                    .panel-heading
+                        -if(message){
+                            div(style='height: 20px; width: 100%;text-align: center; color: green;') #{message}
+                        -}
+                        a(href="/configfile",class="panel-title") upload config file
+                    .panel-body
+                        form(action="upload",method="POST",enctype="multipart/form-data")
+                            legend Upload file
+                            .form-group
+                                label File
+                                input(type="file",class="form-control",name="files")
+                            button(type="submit",class="btn btn-primary") Submit

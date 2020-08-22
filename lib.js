@@ -4,6 +4,33 @@ const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
 const ffmpeg = require('fluent-ffmpeg');
 ffmpeg.setFfmpegPath(ffmpegPath);
 
+const options = {
+  hostname: 'api.fpt.ai',
+  path: '/hmi/tts/v5',
+  headers: {
+    'api-key': '4xBHmsnsiW2e4kmFCQvN5txe4erz7Stt',
+    'speed': '0',
+    'voice': 'banmai',
+    'callback_url': 'http://35.196.95.74/update/audio'
+  },
+  method: 'POST'
+};
+
+exports.ConvertAudio = function(content){
+  var httpreq = https.request(options, function (response) {
+    response.setEncoding('utf8');
+    response.on('data', function (chunk) {
+      console.log("body: " + chunk);
+    });
+    response.on('end', function() {
+      console.log('ok', response);
+    })
+    console.log(response);
+  });
+  httpreq.write(content);
+  httpreq.end();
+};
+
 exports.downloadAudio = function(dir, fileName, url)
 {
     if (!fs.existsSync(dir)){
@@ -19,6 +46,34 @@ exports.downloadAudio = function(dir, fileName, url)
           }).run();
         });
     });
+}
+exports.getSourcePosition = function(files,search){
+  for (let i = 0; i < files.length; i++) {
+    const element = files[i];
+    if(element.indexOf(search) != -1){
+      return i;
+    }
+  }
+  return 0;
+}
+
+exports.sortListFiles = function(listFile){
+  for (let i = 0; i < listFile.length-1; i++) {
+    for (let j = i; j < listFile.length; j++) {
+      if(getActualPosition(listFile[i]) > getActualPosition(listFile[j]))
+      {
+        var temp = listFile[i];
+        listFile[i] = listFile[j];
+        listFile[j] = temp;
+      }
+    }
+  }
+  return listFile;
+}
+function getActualPosition(fileName)
+{
+  var temp = fileName.replace('Chuong','').replace('chuong','').replace('.mp3','').trim();
+  return parseInt(temp, 10);
 }
 
 exports.removeUniCode = function RemoveUniCode(target) {

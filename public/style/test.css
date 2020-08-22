@@ -1,0 +1,343 @@
+*
+{
+   margin:0;
+   padding:0;
+   box-sizing: border-box;
+}
+
+body{
+   height: 100vh;
+}
+#main-display {
+   height: 100vh;
+   width: 600px;
+   margin: auto;
+   background: #0a0f17;
+}
+button:focus {
+   outline:none !important;
+ }
+#content
+{
+   height: 300px;
+   width: 100%;
+   display:block;
+   margin:0 auto;
+   justify-content:center;
+   align-items:center;
+}
+#content-audio{
+   width: 100%;
+   height: 5%;
+   display:flex;
+   margin:0 auto;
+   justify-content:center;
+   align-items:center;
+}
+#audio
+{
+   width: 80%;
+}
+#control-audio
+{
+   margin: auto;
+   width: 100%;
+   height: 90px;
+}
+
+.button-control{
+    height: 100%;
+    margin: auto;
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+}
+
+.button-action {
+   align-self: center;  
+   margin: 10px;
+   height: 30px;
+   width: 80px;
+   border: 0px;
+}
+
+
+.button-control button:nth-child(1){
+   color: white;
+   background: #a742f5;
+}
+.button-control button:nth-child(1):hover{
+   color: #1f0136;
+   background: #a742f5;
+   box-shadow: 0 0 10px #a742f5, 0 0 40px #a742f5,
+               0 0 80px #a742f5;
+}
+
+.button-control button:nth-child(2){
+   color: white;
+   background: #c0cc18;
+}
+.button-control button:nth-child(2):hover{
+   color: #4e5307;
+   background: #c0cc18;
+   box-shadow: 0 0 10px #c0cc18, 0 0 40px #c0cc18,
+               0 0 80px #c0cc18;
+}
+
+
+.button-control button:nth-child(4){
+   color: white;
+   background: #0da192;
+}
+.button-control button:nth-child(4):hover{
+   color: #023833;
+   background: #0da192;
+   box-shadow: 0 0 10px #0da192, 0 0 40px #0da192,
+               0 0 80px #0da192;
+}
+.button-control button:nth-child(5){
+   color: white;
+   background: #18ee35f5;
+}
+.button-control button:nth-child(5):hover{
+   color: #033109;
+   background: #18ee35f5;
+   box-shadow: 0 0 10px #18ee35f5, 0 0 40px #18ee35f5,
+               0 0 80px #18ee35f5;
+}
+
+
+#list-audio{
+   height: 55%;
+   width: 100%;
+   display:block;
+   margin:0 auto;
+   justify-content:center;
+   align-items:center;
+}
+
+#limit {
+   display: none;
+}
+
+#view-list{
+   height: 90%;
+   overflow: auto;
+}
+#pagging {
+   height: 10%;
+   padding: 0;
+    box-sizing: border-box;
+    flex-flow: column;
+    display: flex;
+    margin: auto;
+}
+.loader 
+{
+   position: relative;
+   width: 150px;
+   height: 150px;
+   border-radius: 50%;
+   background: linear-gradient(45deg,transparent, transparent 40%, #e5f403);
+   animation: animate 0.75s linear infinite;
+   top: 60px;
+   left: 225px;
+}
+@keyframes animate
+{
+   0%
+   { transform: rotate(0deg);
+   filter:hue-rotate(0deg);
+   }
+   100%
+   {
+    transform: rotate(360deg);
+     filter:hue-rotate(360deg);
+   }
+}
+
+.loader:before
+{
+   content: '';
+   position: absolute;
+   top: 6px;
+   left: 6px;
+   right: 6px;
+   bottom: 6px;
+   background: #000;
+   border-radius:50%;
+   z-index: 1000;
+}
+.loader:after
+{
+   content: '';
+   position:absolute;
+   top:0px;
+   left:0px;
+   right:0px;
+   bottom:0px;
+   background:linear-gradient(45deg,transparent,
+   transparent 40%, #e5f403);
+   border-radius:50%;
+   z-index: 1000;
+   z-index:1;
+   filter: blur(30px);
+}
+
+#speed-audio{
+    display: block;
+    height: 40px;
+    width: 40px;
+    border-radius: 40px;
+    line-height: 40px;
+    background: #77ccda4d;
+    margin: auto 10px;
+    font-family: "Open Sans", sans-serif;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    user-select: none;
+    cursor: pointer;
+}
+
+#speed-audio:hover{
+   color: white;
+   background: #77ccda4d;
+   box-shadow: 0 0 10px #77ccda4d, 0 0 40px #77ccda4d,
+               0 0 80px #77ccda4d;
+}
+
+#audio:focus {
+   outline-width: 0;
+}
+
+#search-content {
+    justify-content: left;
+    width: 100%;
+    display: flex;
+    float: right;
+    padding: 0px 10px;
+}
+
+.search-box{
+   font-family: "Candara", sans-serif;
+    position: absolute;
+    background: #0d101736;
+    margin: 10px 0px 0px 0px;
+    height: 50px;
+    padding: 5px;
+    border-radius: 40px;
+   box-shadow: 0 0 25px 0 rgba(51, 58, 69, 0.4);
+   }
+
+   .search-box input{
+      border: none;
+      background: none;
+      outline: none;
+      float: left;
+      padding: 0;
+      color: #fff;
+      font-size: 20px;
+      line-height: 40px;
+      width: 0px;
+      transition: all 0.8s;
+   }
+
+   .search-box:hover input{
+      width: 160px;
+      padding: 0 6px;
+   }
+
+   .search-box input:focus{
+   width: 160px;
+   padding: 0 6px;
+   }
+
+   .search-btn {
+      border: none;
+      background: none;
+      outline: none;
+      width: 40px;
+      margin-top: -5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+   }
+
+   .search-btn i {
+      z-index: 1;
+      background: #00b89487;
+      font-size: 20px;
+      color: #333A45;
+      padding: 15px;
+      border-radius: 50px;
+      box-shadow: 0 0 25px 0 rgba(0, 184, 148, 0.4);
+  }
+  
+  .effect{
+   width: 100%;
+   height: 30px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+ }
+ .effect-hidden{
+    display: none;
+ }
+ .effect div{
+   background: #fff;
+   width: 5px;
+   height: 10px;
+   margin-left: 10px;
+   animation: effect 1.2s infinite;
+ }
+
+ @keyframes effect{
+   50%{
+     height: 30px;
+   }
+ }
+
+ .effect div:nth-child(1){
+   background: #FF9F1A;
+   animation-delay: -0.40s;
+ }
+
+ .effect div:nth-child(2){
+   background: #FED330;
+   animation-delay: -0.20s;
+ }
+
+ .effect div:nth-child(3){
+   background: #FFFA65;
+   animation-delay: 0s;
+ }
+ .effect div:nth-child(4){
+   background: #e0f528;
+   animation-delay: -0.40s;
+ }
+
+ .effect div:nth-child(5){
+   background: #69ee1b;
+   animation-delay: -0.20s;
+ }
+
+ .effect div:nth-child(6){
+   background: #5cf196;
+   animation-delay: 0s;
+ }
+ .effect div:nth-child(7){
+   background: #1affcd;
+   animation-delay: -0.40s;
+ }
+
+ .effect div:nth-child(8){
+   background: #30acfe;
+   animation-delay: -0.20s;
+ }
+
+ .effect div:nth-child(9){
+   background: #ad65ff;
+   animation-delay: 0s;
+ }
