@@ -240,10 +240,12 @@ app.use(function(req, res, next){
   if(req.url.endsWith('.css/')){
     req.url = req.url.slice(0, req.url.length-1);
     console.log(req.url);
+    res.setHeader('content-type', 'text/css');
     next();
   }else if(req.url.endsWith('.js/')){
     req.url = req.url.slice(0, req.url.length-1);
     console.log(req.url);
+    res.setHeader('content-type', 'text/javascript');
     next();
   }else{
     res.render('notfound');
