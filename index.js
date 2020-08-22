@@ -240,15 +240,37 @@ app.use(function(req, res, next){
   if(req.url.endsWith('.css/')){
     req.url = req.url.slice(0, req.url.length-1);
     console.log(req.url);
+    var fileName = req.url.replace('/audio', '');
     res.setHeader('content-type', 'text/css');
     res.type('.css');
-    next();
-  }else if(req.url.endsWith('.js/')){
-    req.url = req.url.slice(0, req.url.length-1);
+    res.sendfile(__dirname + '/public' + fileName);
+    return;
+  }
+  else if(req.url.endsWith('.css')){
+    // req.url = req.url.slice(0, req.url.length-1);
     console.log(req.url);
+    var fileName = req.url.replace('/audio', '');
+    res.setHeader('content-type', 'text/css');
+    res.type('.css');
+    res.sendfile(__dirname + '/public' + fileName);
+    return;
+  }else if(req.url.endsWith('.js')){
+    // req.url = req.url.slice(0, req.url.length-1);
+    console.log(req.url);
+    var fileName = req.url.replace('/audio', '');
     res.setHeader('content-type', 'text/javascript');
     res.type('.js');
-    next();
+    res.sendfile(__dirname + '/public' + fileName);
+    return;
+  }
+  else if(req.url.endsWith('.js/')){
+    req.url = req.url.slice(0, req.url.length-1);
+    console.log(req.url);
+    var fileName = req.url.replace('/audio', '');
+    res.setHeader('content-type', 'text/javascript');
+    res.type('.js');
+    res.sendfile(__dirname + '/public' + fileName);
+    return;
   }else{
     res.render('notfound');
   }
