@@ -9,13 +9,13 @@ const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
 const ffmpeg = require('fluent-ffmpeg');
 ffmpeg.setFfmpegPath(ffmpegPath);
 var formidable = require('formidable');
-var bodyParser = require('body-parser');
+// var bodyParser = require('body-parser');
 
-// parse application/json 
-app.use(bodyParser.json());
+// // parse application/json 
+// app.use(bodyParser.json());
 
-// parse application/x-www-form-urlencoded 
-app.use(bodyParser.urlencoded({ extended: false }));
+// // parse application/x-www-form-urlencoded 
+// app.use(bodyParser.urlencoded({ extended: false }));
 
 router.post('/update/audio', function (req, res) {
   try{
