@@ -9,7 +9,13 @@ const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
 const ffmpeg = require('fluent-ffmpeg');
 ffmpeg.setFfmpegPath(ffmpegPath);
 var formidable = require('formidable');
-const { url } = require('inspector');
+var bodyParser = require('body-parser');
+
+// parse application/json 
+app.use(bodyParser.json());
+
+// parse application/x-www-form-urlencoded 
+app.use(bodyParser.urlencoded({ extended: false }));
 
 router.post('/update/audio', function (req, res) {
   try{
@@ -212,6 +218,14 @@ router.get('/audio', function (req, res) {
     }
 });
 
+router.get('/ethercrash',function(req,res) {
+  res.render('checkHashEtherCrash',{ isEther: true});
+});
+
+router.get('/bustabit',function(req,res) {
+  res.render('checkHashEtherCrash',{ isEther: false});
+});
+
 router.get('/list', function (req, res) {
   try{
       console.log("List");
@@ -234,6 +248,22 @@ router.get('/', function (req, res) {
 router.get('/small', function (req, res) {
   console.log(req.url);
   res.sendfile(__dirname + '/small.html')
+});
+
+router.get('/testpost', function (req, res) {
+  console.log(req.url);
+  res.sendfile(__dirname + '/test.html')
+});
+router.post('/post', function (req, res) {
+  console.log(req.body);
+  console.log('user', req.user);
+  console.log(req.body.users);
+  console.log(req.body.bits);
+  var data = req.body.email;
+  console.log(data);
+  db.test(data, function(){
+    res.send('done');
+  });
 });
 
 

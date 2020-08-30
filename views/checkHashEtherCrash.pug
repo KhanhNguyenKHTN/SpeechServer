@@ -1,0 +1,49 @@
+html
+    head
+        title Check Hash
+        link(rel="icon",href="icon/favicon.ico")
+        link(rel="stylesheet",type="text/css", href="style/table.css")
+        link(rel="stylesheet",type="text/css", href="style/pagging.css")
+        style.
+            table {
+            margin-top: 30px;
+            border-collapse: collapse;
+            }
+            table, th, td {
+            border: 1px solid rgba(0,0,0,0.3);
+            }
+            th, td{
+            padding: 5px;
+            }
+    body
+        if isEther
+            h1 Check Hash For EtherCrash.io
+        else
+            h1 Check Hash For Bustabit.com
+        form(onsubmit="return false;")
+            br
+            label(for="gameHash") Game's Hash: (be sure to use a valid hash to get the real values)
+            br
+            input(type="text",name="gameHash",id="gameHash")
+            br
+            br
+            label(for="gameAmount") Amount of game to show from this hash:
+            br
+            input(type="number",min="1",step="1",name="gameAmount",id="gameAmount",value="100")
+            br
+            br
+            button(onclick="refreshTable();") Start Check
+        table(id="hashTable")
+            thead
+                tr
+                    th Game's hash
+                    th Crash
+            tbody(id="tbody")
+            
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/components/core.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/components/sha256.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/components/hmac.js")
+    if isEther
+        script(src="js/ethercrash.js")                            
+    else
+        script(src="js/bustabit.js")                            

@@ -107,3 +107,17 @@ exports.removeUniCode = function RemoveUniCode(target) {
     // target.replace(':','');
     return temp;
   };
+
+  exports.crashPointFromHash = function(serverSeed) {
+    var hash = crypto.createHmac('sha256', serverSeed).update(clientSeed).digest('hex');
+
+    // In 1 of 101 games the game crashes instantly.
+    if (divisible(hash, 101))
+        return 0;
+
+    // Use the most significant 52-bit from the hash to calculate the crash point
+    var h = parseInt(hash.slice(0,52/4),16);
+    var e = Math.pow(2,52);
+
+    return Math.floor((100 * e - h) / (e - h));
+};

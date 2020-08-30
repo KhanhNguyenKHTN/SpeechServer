@@ -31,6 +31,16 @@ function AddLineToLastId(link, callback)
 }
 
 exports.UpdateLink = AddLineToLastId;
+exports.test = function(email, callback){
+  console.log(email);
+   con.query("Select Id, Link, KeySound, Direction from SoundInfo Where Description = ?", email, function(err, results) {
+      console.log(err);
+      console.log(results);
+      console.log(results[0]);
+      callback();
+   });
+   
+}
 
 exports.updateDownLoad = function(url, callback)
 {
