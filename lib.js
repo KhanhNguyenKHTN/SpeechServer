@@ -40,7 +40,7 @@ exports.downloadAudio = function(dir, fileName, url)
     var file = fs.createWriteStream(path);
     https.get(url, function(response) {
         response.pipe(file).on('finish', ()=>{
-          if (!fs.existsSync(dir + '/Fix')){
+          if ( dir != "Data/TheGioiHoanMy" && !fs.existsSync(dir + '/Fix')){
             fs.mkdirSync(dir + '/Fix');
         }
           var path2 =  dir == "Data/TheGioiHoanMy" ? ("Data/Fix/"  + fileName) : (dir + '/Fix/' + fileName);
