@@ -9,6 +9,7 @@ const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
 const ffmpeg = require('fluent-ffmpeg');
 ffmpeg.setFfmpegPath(ffmpegPath);
 var formidable = require('formidable');
+const { dir } = require('console');
 // var bodyParser = require('body-parser');
 
 // // parse application/json 
@@ -117,11 +118,37 @@ router.get('/chuong/:id', function (req, res) {
   //__dirname : It will resolve to your project folder.
 });
 
+router.get('/other/:dir/:id', function (req, res) {
+    try{
+        const range = req.headers.range;
+        console.log(range);
+        const filePath = path.join(__dirname, 'Data/' + req.params.dir + '/Fix/Chuong' + req.params.id);
+        const stat = fs.statSync(filePath);
+        const total = stat.size;
+        res.writeHead(200, {
+            'Content-Range': 'bytes ' + 0 + '-' + (total -1) + '/' + total,
+            'Accept-Ranges': 'bytes',
+            'Content-Type': 'audio/mpeg',
+            'Content-Length': stat.size
+        });
+    
+        const readStream = fs.createReadStream(filePath);
+        readStream.pipe(res);
+  
+    }catch{
+        res.send("ERROR");
+    }
+    // res.setHeader("Content-Type:","audio/mpeg")
+    // res.sendFile(path.join(__dirname + '/Data/Chuong' + req.params.id));
+    // res.send(req.params.id);
+    //__dirname : It will resolve to your project folder.
+  });
+
 router.get('/download/chuong/:id', function (req, res) {
   try{
       const range = req.headers.range;
       console.log(range);
-      const filePath = path.join(__dirname, '/Data/TheGioiHoanMy/Chuong' + req.params.id);
+      const filePath = path.join(__dirname, '/Data/Fix/Chuong' + req.params.id);
       const stat = fs.statSync(filePath);
       const total = stat.size;
       res.writeHead(200, {
@@ -318,4 +345,3 @@ app.set('view engine', 'pug');
 app.listen(process.env.port || 8888);
 
 console.log('Running at Port http://localhost:8888/');
-
