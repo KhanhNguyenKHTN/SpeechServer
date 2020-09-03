@@ -36,12 +36,14 @@ exports.downloadAudio = function(dir, fileName, url)
     if (!fs.existsSync(dir)){
         fs.mkdirSync(dir);
     }
-    console.log(dir);
     var path = dir + '/' + fileName;
     var file = fs.createWriteStream(path);
     https.get(url, function(response) {
         response.pipe(file).on('finish', ()=>{
-          var path2 = "Data/Fix/" + fileName;
+          if (!fs.existsSync(dir + '/Fix')){
+            fs.mkdirSync(dir + '/Fix');
+        }
+          var path2 =  dir == "Data/TheGioiHoanMy" ? ("Data/Fix/"  + fileName) : (dir + '/Fix/' + fileName);
           ffmpeg(path).audioCodec('copy').output(path2).on('error', function(err) {
             console.log('An error occurred: ' + err.message);
           }).run();
@@ -101,11 +103,6 @@ exports.removeUniCode = function RemoveUniCode(target) {
         temp = temp.replace(element, key);
       });
     });
- 
-    // target.replace('.','');
-    // target.replace('_','');
-    // target.replace('-','');
-    // target.replace(':','');
     return temp;
   };
 
