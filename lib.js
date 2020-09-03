@@ -36,6 +36,7 @@ exports.downloadAudio = function(dir, fileName, url)
     if (!fs.existsSync(dir)){
         fs.mkdirSync(dir);
     }
+    console.log(dir);
     var path = dir + '/' + fileName;
     var file = fs.createWriteStream(path);
     https.get(url, function(response) {
