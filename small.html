@@ -60,5 +60,16 @@
       vid.playbackRate -= 0.1;
       test.innerText = vid.playbackRate;
     } 
+    function go() {
+      var input = document.getElementById("Chuong").value;
+      CurId = parseInt(input);
+      var source = document.getElementById('audioSource');
+      var name = 'http://35.196.95.74/other/BatHuPhamNhan/' + CurId + '.mp3';
+      source.src = name;
+      title.innerText = name;
+      vid.load(); //call this to just preload the audio without playing
+      vid.play(); //call this to play the song right away
+      vid.playbackRate = 1.2;
+    }
     </script> 
 </html>
